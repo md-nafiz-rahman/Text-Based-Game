@@ -1,0 +1,385 @@
+{
+  "rooms": [
+    {
+      "id": "outside",
+      "desc": "You are outside a building. It looks like the front entrance is open and you can go inside.",
+      "exits": {
+        "inside": "lobby"
+      }
+    },
+    {
+      "id": "lobby",
+      "desc": "You are in the main lobby of the building. There is a lift on your right and some stairs to the left which is protected by a glass door.",
+      "alt_desc": "You are in the main lobby of the building. There is a lift on your right, some stairs to the left behind a glass door, and a sleeping guard on the floor.",
+      "exits": {
+        "outside": "outside",
+        "lift": "lift",
+        "right": "lift",
+        "left": "basement"
+      }
+    },
+    {
+      "id": "lift",
+      "desc": "You are in the lift. It has buttons for the lobby, first floor, and second floor.",
+      "exits": {
+        "lobby": "lobby",
+        "first floor": "floor1_corridor",
+        "second floor": "floor2_corridor"
+      }
+    },
+    {
+      "id": "basement",
+      "desc": "You are in the basement. There's a desk with a computer here. There are stairs leading back to the lobby. On your left there is a big bookshelf. On your right there is a door.",
+      "valid_desc": "The bookshelf is moving revealing a hidden door...",
+      "status": "locked",
+      "key_required": "keycard",
+      "exits": {
+        "up": "lobby",
+        "cctv": "cctv_room",
+        "right": "cctv_room",
+        "cctv room": "cctv_room",
+        "hidden door": "secret_room",
+        "left": "secret_room"
+      }
+    },
+    {
+      "id": "cctv_room",
+      "desc": "You are in the CCTV room. There's a monitor here. There is no exits other than the one you came from.",
+      "exits": {
+        "back": "basement"
+      }
+    },
+    {
+      "id": "secret_room",
+      "desc": "You are in a secret room. There is only one exit to which you came in from.",
+      "status": "hidden",
+      "exits": {
+        "back": "basement"
+      }
+    },
+    {
+      "id": "floor1_corridor",
+      "cctv_desc": "Floor 1: The first floor has a door on the right and left, ending with stairs leading up.",
+      "desc": "You are in the corridor of first floor. There is a door on your right and a door on your left. At the end of the corridor there are stairs that goes up.",
+      "exits": {
+        "lift": "lift",
+        "left": "office1",
+        "right": "office2",
+        "up": "floor2_corridor"
+      }
+    },
+    {
+      "id": "office1",
+      "desc": "You are in a room that looks like a normal office for an office worker.",
+      "exits": {
+        "back": "floor1_corridor",
+        "corridor": "floor1_corridor"
+      }
+    },
+    {
+      "id": "office2",
+      "desc": "You are in a room that looks like an office. There is a desk with a drawer in the corner.",
+      "exits": {
+        "back": "floor1_corridor",
+        "corridor": "floor1_corridor"
+      }
+    },
+    {
+      "id": "floor2_corridor",
+      "desc": "You are on the second floor corridor. There is a door on your left and a door on your right. At the end of the corridor there are stairs.",
+      "cctv_desc": "Floor 2: The second floor corridor mirrors the first, with two doors and stairs at the end.",
+      "alt_desc": "You are on the second floor corridor. There is a door on your left and a door on your right. At the end of the corridor there are stairs. The intercom is disabled.",
+      "exits": {
+        "lift": "lift",
+        "up": "floor3_corridor",
+        "left": "teleportroom",
+        "right": "lounge",
+        "down": "floor1_corridor"
+      }
+    },
+    {
+      "id": "teleportroom",
+      "desc": "You are in the teleport room about to be teleported.",
+      "exits": {},
+      "isTeleportRoom": true
+    },
+    {
+      "id": "lounge",
+      "desc": "You are in a room that looks like a big lounge. There are lots of sofas and chairs around.",
+      "exits": {
+        "back": "floor2_corridor",
+        "corridor": "floor2_corridor"
+      }
+    },
+    {
+      "id": "floor3_corridor",
+      "desc": "You are in the third floor. There seems to be no more stairs going up and no access to lift from this floor. There is a locked door in front of you. There seems to be a keypad next to the door.",
+      "alt_desc": "You are in the third floor. There seems to be no more stairs going up and no access to lift from this floor. The door in front of you is unlocked and the keypad is flashing green.",
+      "valid_desc": "The door in front of you is unlocking...",
+      "cctv_desc": "Floor 3: On the third floor, you find a dead-end corridor with a locked door and a keypad.",
+      "exits": {
+        "down": "floor2_corridor",
+        "front": "director_office"
+      }
+    },
+    {
+      "id": "director_office",
+      "desc": "You are in a very sophisticated office with lots of books and documents lying around.",
+      "status": "locked",
+      "key_required": "keypad",
+      "exits": {
+        "back": "floor3_corridor"
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "gun",
+      "desc": "A gun, useful for shooting bullets or darts.",
+      "initialroom": "outside"
+    },
+    {
+      "id": "dart",
+      "desc": "Dart for putting people to sleep.",
+      "initialroom": "outside",
+      "discardAfterUse": true
+    },
+    {
+      "id": "keycard",
+      "desc": "A keycard dropped by the guard. Could be used to open something.",
+      "initialroom": "lobby",
+      "isAvailable": false
+    },
+    {
+      "id": "torch",
+      "desc": "A torch, projects very bright light. Could be used to blind someone.",
+      "initialroom": "lobby",
+      "isAvailable": false
+    },
+    {
+      "id": "painkillers",
+      "desc": "These seems to be some effective painkillers.",
+      "healthscore": 40,
+      "initialroom": "office1"
+    },
+    {
+      "id": "bullet",
+      "desc": "These are some normal bullets that can be loaded into a gun.",
+      "initialroom": "office1"
+    },
+    {
+      "id": "computer",
+      "desc": "A computer, on the screen it says to Enter a 5 digit code.",
+      "initialroom": "basement",
+      "isUsable": true,
+      "required_code": 34910,
+      "on_success": {
+        "update_room": {
+          "basement": {
+            "desc": "You are in the basement. There's a desk with a computer here, a CCTV room. There are stairs leading back to the lobby. On your left the bookshelf moved revealing a hidden door.",
+            "exits": {
+              "hidden door": "secret_room"
+            }
+          },
+          "secret_room": {
+            "status": "unlocked"
+          }
+        }
+      }
+    },
+    {
+      "id": "keypad",
+      "desc": "This is a keypad and looks like in it you can enter a four digit code.",
+      "initialroom": "floor3_corridor",
+      "isUsable": true,
+      "required_code": 3491,
+      "on_success": {
+        "update_room": {
+          "director_office": {
+            "status": "unlocked"
+          },
+          "floor3_corridor": {
+            "valid_desc": "The door in front of you is unlocking...",
+            "desc": "You are in the third floor. There seems to be no more stairs going up and no access to lift from this floor. The door in front of you is unlocked and the keypad is flashing green."
+          }
+        }
+      }
+    },
+    {
+      "id": "monitor",
+      "desc": "A monitor to view different rooms.",
+      "initialroom": "cctv_room",
+      "isUsable": true,
+      "display_rooms": [
+        "floor1_corridor",
+        "floor2_corridor",
+        "floor3_corridor"
+      ]
+    },
+    {
+      "id": "secret document",
+      "desc": "A secret document.",
+      "initialroom": "secret_room"
+    },
+    {
+      "id": "baton",
+      "desc": "A baton, looks strong enough to even break even metals.",
+      "initialroom": "cctv_room"
+    },
+    {
+      "id": "vest",
+      "desc": "A vest, looks bulletproof.",
+      "isShield": true,
+      "initialroom": "cctv_room"
+    },
+    {
+      "id": "drawer",
+      "desc": "Drawer of the desk",
+      "initialroom": "office2",
+      "isOpenable": true,
+      "requiresKey": "small key",
+      "contents": [
+        "hammer"
+      ]
+    },
+    {
+      "id": "glass box",
+      "desc": "This is a thick glass box, you can't see what is inside. But it seems breakable.",
+      "initialroom": "office2",
+      "isBreakable": true,
+      "breakBy": [
+        "hammer"
+      ],
+      "contents": [
+        "note"
+      ]
+    },
+    {
+      "id": "hammer",
+      "desc": "This is an ordinary hammer. Could be used to break something.",
+      "initialroom": "office2",
+      "isAvailable": false
+    },
+    {
+      "id": "note",
+      "desc": "This is a note with what seems like a morse code written on it. On the note it is written ...-- ....- . Seems like it is a type of code.",
+      "initialroom": "office2",
+      "isAvailable": false
+    },
+    {
+      "id": "intercom note",
+      "desc": "This is a note with what seems like a morse code written on it. On the note it is written ----. .---- seems like it is a type of code.",
+      "initialroom": "office2",
+      "isAvailable": false
+    },
+    {
+      "id": "card",
+      "desc": "This is a card dropped by the director which has a code. It says the final digit is 0.",
+      "initialroom": "director_office",
+      "isAvailable": false
+    },
+    {
+      "id": "cabinet",
+      "desc": "This is an old cabinet, seems unlocked.",
+      "initialroom": "lounge",
+      "isOpenable": true,
+      "contents": [
+        "small key"
+      ]
+    },
+    {
+      "id": "small key",
+      "desc": "This is a key, the key seems too small to be for a door.",
+      "initialroom": "lounge",
+      "isAvailable": false
+    }
+  ],
+  "enemies": [
+    {
+      "id": "guard",
+      "desc": "A guard, that seems to be guarding the main lobby of the building.",
+      "aggressiveness": 25,
+      "initialroom": "lobby",
+      "intro_msg": "There is a guard in the lobby. He seems to have noticed you and he is walking towards you.",
+      "successful_kill_msg": "You put him to sleep, looks like he is not waking up anytime soon. As you dropped him to sleep the guard dropped a keycard and a torch on the floor.",
+      "unsuccessful_kill_msg": "You tried to kill him, but you don't have anything on you to tackle him.",
+      "successful_escape_msg": "You escaped successfully.",
+      "unsuccessful_escape_msg": "You ignored the guard but he stopped you and attacked you.",
+      "killedby": [
+        "dart",
+        "gun"
+      ],
+      "on_defeat_update_room": {
+        "lobby": "useAltDesc"
+      },
+      "on_defeat_update_object": {
+        "keycard": true,
+        "torch": true
+      }
+    },
+    {
+      "id": "intercom",
+      "desc": "There is an intercom that is speaking to you.",
+      "aggressiveness": 10,
+      "initialroom": "floor2_corridor",
+      "intro_msg": "Suddenly an intercom talks to you: I am full of keys but can't open locks, I have a space but no room, you can enter but can't go outside. What am I?",
+      "commentReference": "[1] riddle referenced in readme.txt",
+      "successful_kill_msg": "You gave the correct answer and the intercom goes off. An intercom note is ejected",
+      "unsuccessful_kill_msg": "You gave the wrong answer. An electric beam shoots at you from an unknown location!",
+      "successful_escape_msg": "You escaped successfully.",
+      "unsuccessful_escape_msg": "You tried to escape but an electric beam shoots at you making you paralysed and unable to move from here.",
+      "requiredAnswer": "keyboard",
+      "killedby": [
+        ""
+      ],
+      "on_defeat_update_room": {
+        "floor2_corridor": "useAltDesc"
+      },
+      "on_defeat_update_object": {
+        "intercom note": true
+      }
+    },
+    {
+      "id": "robot",
+      "desc": "There is a robot that can walk and attack.",
+      "aggressiveness": 50,
+      "initialroom": "floor1_corridor",
+      "intro_msg": "There is a robot as you entered first floor corridor. It looks like the robot won't let you go past it.",
+      "successful_kill_msg": "You blinded the robot with the torch light and broke it using the baton.",
+      "unsuccessful_kill_msg": "You tried to kill the robot, but you don't have anything on you to be able to kill it.",
+      "successful_escape_msg": "You escaped successfully.",
+      "unsuccessful_escape_msg": "You tried to escape the robot but it is very alert and has 360 degree vision. He caught you escaping and attacked you.",
+      "killedby": [
+        "torch",
+        "baton"
+      ]
+    },
+    {
+      "id": "director",
+      "desc": "He is the main director of the bulding, he looks strong and he is armed!",
+      "aggressiveness": 70,
+      "initialroom": "director_office",
+      "intro_msg": "There is a director as you entered third floor director office.",
+      "successful_kill_msg": "After a long intense gun fight you managed to defeat the main director of the office. As you killed the director he dropped a card on the floor.",
+      "unsuccessful_kill_msg": "You tried to kill the director but he is armed and strong. You did not have necessary weapons to kill him.",
+      "successful_escape_msg": "You escaped successfully.",
+      "unsuccessful_escape_msg": "You tried to escape but the big and strong director blocked you and attacked you.",
+      "killedby": [
+        "gun",
+        "bullet"
+      ],
+      "on_defeat_update_object": {
+        "card": true
+      }
+    }
+  ],
+  "player": {
+    "initialroom": "outside"
+  },
+  "objective": {
+    "type": "collect",
+    "what": [
+      "secret document"
+    ]
+  }
+}
