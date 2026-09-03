@@ -119,3 +119,9 @@ To start the game using a specific map file:
 - **answer \<your_answer\>**
   - **Description**: Provide an answer to a riddle posed by an enemy.
   - **Example**: `answer keyboard`
+
+
+## Authors
+
+- MD Nafiz Rahman (https://github.com/md-nafiz-rahman)
+- Youssef Sadquy (https://github.com/youssefsadquy)
